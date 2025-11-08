@@ -1,0 +1,11 @@
+.vscode
+.editorconfig
+build
+CMakeFiles
+callgrind*
+cmake_install.cmake
+CMakeCache.txt
+CTestTestfile.cmake
+Makefile
+latex
+html

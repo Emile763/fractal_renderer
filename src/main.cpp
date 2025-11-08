@@ -11,7 +11,7 @@
 #include <unistd.h>
 #endif
 
-#include "GL/gl3w.h"
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 
@@ -75,7 +75,7 @@ double r(5), g(0), b(0);
 double x(0), y(0);
 int iteration = 100;
 bool update = false;
-bool close = false;
+bool must_close = false;
 float seconds = 0;
 float power = 10.f;
 int width;
@@ -146,7 +146,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     
     if (key == GLFW_KEY_ESCAPE)
     {
-        close = true;
+        must_close = true;
 
     }
     if (action == GLFW_PRESS)
@@ -240,7 +240,7 @@ int main(int argc, char** argv) {
     }
     glfwMakeContextCurrent(window);
 
-    if (gl3wInit() != 0) {
+    if (glewInit() != 0) {
         exit(-3);
     }
     glfwWindowHint(GLFW_SAMPLES, 4);
@@ -345,7 +345,7 @@ int main(int argc, char** argv) {
 
     computeShaderID = glCreateShader(GL_COMPUTE_SHADER);
 
-    fileToString("compute.shader", &computeShader);
+    fileToString("shaders/compute.shader", &computeShader);
     compileShader(computeShaderID, computeShader);
 
     csProgramID = glCreateProgram();
@@ -370,8 +370,8 @@ int main(int argc, char** argv) {
     vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
     fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
-    fileToString("vertex.shader", &vertexShader);
-    fileToString("fragment.shader", &fragmentShader);
+    fileToString("shaders/vertex.shader", &vertexShader);
+    fileToString("shaders/fragment.shader", &fragmentShader);
 
     compileShader(vertexShaderID, vertexShader);
     compileShader(fragmentShaderID, fragmentShader);
@@ -411,7 +411,7 @@ int main(int argc, char** argv) {
     
 
     /* ----- Render loop ----- */
-    while (!close) {
+    while (!must_close) {
 
         glfwPollEvents();
         
