@@ -1,4 +1,5 @@
 # Global Description
+Project from 2021.\
 This small app lets you explore the fascinating world of two famous fractals: the Mandelbrot set and the Julia set.
 
 A fractal found in the Julia set:
